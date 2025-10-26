@@ -1,0 +1,23 @@
+﻿IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'ATM_DB')
+BEGIN
+    CREATE DATABASE ATM_DB;
+END
+GO
+
+USE ATM_DB;
+GO
+
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Cuentas' and xtype='U')
+CREATE TABLE Cuentas (
+    ID              INT PRIMARY KEY IDENTITY(1,1),
+    NumeroCuenta    VARCHAR(16) NOT NULL UNIQUE,
+    PIN             VARCHAR(4) NOT NULL,
+    Saldo           DECIMAL(18, 2) NOT NULL
+);
+GO
+
+-- DATOS DE PRUEBA
+INSERT INTO Cuentas (NumeroCuenta, PIN, Saldo) VALUES
+('1234567890123456', '1234', 1500.50),
+('9876543210987654', '4321', 5000.00);
+GO
